@@ -1,0 +1,106 @@
+<div class="card">
+    <div class="col-sm-12">
+        <a href="product/add" class="btn btn-success mt-2">Thêm sản phẩm</a>
+    </div>
+
+    <div class="card-header">
+        <h3 class="card-title">Danh sách sản phẩm</h3>
+    </div>
+    <form action="product?_seach" method="GET" class="col-sm-12 mb-3 mt-4">
+        <div class="row">
+            <div class="col-sm-2">
+                <select name="role_id" class="form-control" id="">
+                    <option selected value="">Danh mục</option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" name="keywords" placeholder="nhập nội dung tìm kiếm ..." class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" value="Tìm kiếm" placeholder="" class="form-control btn btn-success">
+            </div>
+        </div>
+    </form>
+    {{!-- <form action="" method="GET" class="col-sm-12 mb-3 mt-4">
+        <div class="row">
+            <div class="all-check d-flex align-items-center">
+                <input type="checkbox" id="form-check-all">
+                Chọn tất cả
+            </div>
+            <div class="col-sm-2">
+                <select name="role_id" class="form-control action_select" id="">
+                    <option selected value="">--Hành động--</option>
+                    <option value="">Xóa</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" value="Thực hiện" placeholder="" class="form-control btn btn-success disabled">
+            </div>
+        </div>
+    </form> --}}
+    <!-- /.card-header -->
+
+    <div class="card-body">
+
+        <table id="example2" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        chọn
+                    </th>
+                    <th scope="col">STT</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">
+                        Tên sản phẩm
+                        {{{sortTable 'name' _sort}}}
+                    </th>
+                    <th scope="col">
+                        Giá sản phẩm
+                        {{{sortTable 'price' _sort}}}
+                    </th>
+                    <th scope="col">Hình ảnh</th>
+                    <th scope="col">Danh mục</th>
+                    <th scope="cols">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data}}
+                <tr>
+                    <td>
+                        <div class="form-check">
+                            <input name="checkInput[]" type="checkbox" class="form-check-input">
+                        </div>
+                    </td>
+                    <td>{{sum @index 1}}</td>
+                    <td>{{id}}</td>
+                    <td>{{name}}</td>
+                    <td>{{price}}</td>
+                    <td>
+                        <img style="height: 50px;width: 100px; " src="{{this.feature_image_path}}" alt="">
+                    </td>
+                    <td>{{this.Category.name}}</td>
+                    <td class="d-flex align-items-center justify-content-around">
+                        <a href=""><i class="fas fa-edit"></i></a>
+                        <a style="cursor:pointer;" data-url="/admin/product/delete/{{id}}" class="delete"><i
+                                class=" fas fa-trash"></i></a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+
+{{#section 'js'}}
+<script src="/js/sweetalert/sweetalert2@11.js"></script>
+<script src="/js/delete.js">
+
+</script>
+<script src="/js/checkAll.js">
+</script>
+
+
+{{/section}}
