@@ -36,12 +36,12 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'src/resources', 'view'));
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/stylesheets/fontawesome', express.static(__dirname + '/node_modules/@fortawesome/fontawesome-free/'));
+route(app)
 app.get('/', (req, res) => {
     return res.render('hello')
 })
 
 connectDB()
-route(app)
 app.listen(PORT, () => {
     console.log('server start')
 })
