@@ -15,7 +15,7 @@ const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart();
 const fs = require('fs');
 
-const PORT = 5001
+const PORT = process.env.PORT || 8080
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
