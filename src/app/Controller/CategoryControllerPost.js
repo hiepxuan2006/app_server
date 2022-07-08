@@ -18,7 +18,7 @@ class CategoryControllerPost {
         //         ]
         //     })
         // }
-        return res.render('categoryPost/indexCategoryPost', { data })
+        return res.render('CategoryPost/indexCategoryPost', { data })
     }
     add = async (req, res) => {
         const datas = await db.CategoryPost.findAll({
@@ -26,7 +26,7 @@ class CategoryControllerPost {
         })
         const htmlSelect = menuDeqy.categoryLoop(datas, 0, '')
         // res.send(data)
-        return res.render('categoryPost/addCategoryPost', {
+        return res.render('CategoryPost/addCategoryPost', {
             htmlSelect
         })
     }
@@ -46,7 +46,7 @@ class CategoryControllerPost {
 
         })
         // res.json(data)
-        res.render('category/editCategory', { data })
+        res.render('Category/editCategory', { data })
 
     }
     delete = async (req, res) => {
