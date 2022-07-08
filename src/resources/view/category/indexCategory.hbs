@@ -1,0 +1,54 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/js\swetalert\sweetalert2.css">
+{{/section}}
+<div class="card">
+    <div class="col-sm-12">
+        <a href="category/add" class="btn btn-success mt-2">Thêm danh mục</a>
+    </div>
+    <div class="card-header">
+        <h3 class="card-title">Danh sách danh mục</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example2" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Id</th>
+                    <th>
+                        Tên Danh mục
+                        {{{sortTable 'name' _sort}}}
+                    </th>
+                    <th>
+                        Parent Id
+                        {{{sortTable 'parent_id' _sort}}}
+                    </th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data}}
+                <tr>
+                    <td>{{sum @index 1}}</td>
+                    <td>{{this.id}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.parent_id}}</td>
+                    <td class="d-flex align-items-center justify-content-around">
+                        <a href="category/edit/{{this.id}}"><i class="fas fa-edit"></i></a>
+                        <a style="cursor: pointer;" data-url="/admin/category/delete/{{this.id}}" class="delete"><i
+                                class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+{{#section 'js'}}
+<script src="/js/sweetalert/sweetalert2@11.js"></script>
+<script src="/js/delete.js">
+</script>
+{{/section}}

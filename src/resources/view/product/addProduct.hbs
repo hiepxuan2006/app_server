@@ -1,0 +1,67 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <form class="col-sm-12" action="/admin/product/add" method="POST" enctype="multipart/form-data">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tên sản phẩm</label>
+                        <input type="text" class="form-control" name="name" placeholder="Nhập tên Sản phẩm" value="">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Giá sản phẩm</label>
+                        <input type="text" class="form-control" name="price" placeholder="Nhập giá sản phẩm" value="">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Ảnh đại diện</label>
+                        <input type="file" class="form-control-file" name="feature_image_path">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Ảnh chi tiết</label>
+                        <input type="file" multiple class="form-control-file" name="image_path">
+                    </div>
+                    <div class="form-group">
+                        <label>Danh mục</label>
+                        <select class="form-control  " name="category_id">
+                            <option value="0">Chọn danh mục</option>
+                            {{{htmlSelect}}}
+                        </select>
+                    </div>
+                    {{!-- <div class="form-group">
+                        <label>Nhập Tags</label>
+                        <select name="tags[]" class="form-control tags_select_choose" multiple="multiple">
+                        </select>
+                    </div> --}}
+
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nội dung sản phẩm</label>
+                        <textarea name="contents" style="height: 1000px;" class="form-control my-editor " rows=""
+                            cols="">
+                                </textarea>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <button class="btn btn-primary" type="submit">Thêm sản phẩm</button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{{#section 'js'}}
+<script src="/ckeditor\ckeditor.js">
+</script>
+<script>
+    CKEDITOR.replace('contents', {
+        extraPlugins: 'filebrowser',
+        filebrowserBrowseUrl: '/upload/list',//upload location
+        filebrowserUploadMethod: 'form',
+        filebrowserUploadUrl: '/upload'//route
+    })
+</script>
+{{/section}}
