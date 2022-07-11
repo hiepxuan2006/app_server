@@ -19,13 +19,13 @@ const fileFilter = (req, file, callback) => {
     }
 }
 const upload = multer({
-        storage: storage,
-        limits: {
-            fieldSize: 1024 * 1024 * 5
-        },
-        fileFilter: fileFilter
-    })
-    // const multipleUpload = upload.fields([{ name: 'fileImage' }, { maxCount: 20 },])
+    storage: storage,
+    limits: {
+        fieldSize: 1024 * 1024 * 5
+    },
+    fileFilter: fileFilter
+})
+// const multipleUpload = upload.fields([{ name: 'fileImage' }, { maxCount: 20 },])
 const multipleUpload = upload.fields([{ name: 'feature_image_path' }, { name: 'image_path[]', maxCount: 4 }])
 
 // Bên trong hàm .array() truyền vào name của thẻ input, ở đây mình đặt là "many-files", và tham số thứ hai là giới hạn số file được phép upload mỗi lần, mình sẽ để là 17 (con số mà mình yêu thích). Các bạn thích để bao nhiêu cũng được.

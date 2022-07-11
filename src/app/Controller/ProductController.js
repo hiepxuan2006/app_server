@@ -38,7 +38,7 @@ class ProductController {
             const newProduct = {
                 name: data.name,
                 price: data.price,
-                feature_image_path: req.files.feature_image_path[0].path.replace('public\\', '/'),
+                feature_image_path: `upload/${req.files.feature_image_path[0].filename}`,
                 content: data.contents,
                 category_id: data.category_id,
                 slug: ChangeToSlug(data.name)
