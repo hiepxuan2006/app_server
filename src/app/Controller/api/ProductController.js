@@ -1,34 +1,48 @@
 const db = require("../../../../models")
 const { Op } = require("sequelize");
+const { fn } = require("sequelize");
 class ProductController {
     getListProduct = async (req, res) => {
         try {
-            const params = req.query
+            let { sort, type, page = 1 } = req.query
+            let limit = 6;
+            let totalRows;
+            const skip = (page - 1) * limit
             let data = []
-            if (params.sort && params.type) {
-                data = await db.Product.findAll({
+
+            if (sort && type) {
+                const { count, rows } = await db.Product.findAndCountAll({
                     include:
                         [{ model: db.Category, }],
                     order: [
-                        [params.sort, params.type],
+                        [sort, type],
                     ],
+                    offset: skip,
+                    limit: limit
 
                 })
+                data = rows
+                totalRows = count
+
             } else {
 
-                data = await db.Product.findAll({
+                const { count, rows } = await db.Product.findAndCountAll({
                     include:
-                        [{ model: db.Category, }]
+                        [{ model: db.Category, }],
+                    offset: skip,
+                    limit: limit
 
                 })
+                data = rows
+                totalRows = count
             }
 
-
-            // res.send(sort)
             if (data) {
                 res.status(200).json({
                     data: data,
                     success: true,
+                    totalRows: totalRows,
+                    limit: limit,
                     message: 'SuccessFully'
                 })
             }
@@ -39,6 +53,7 @@ class ProductController {
                     message: 'Server disconected!'
                 })
             }
+
         } catch (error) {
 
         }
@@ -46,30 +61,42 @@ class ProductController {
     }
     getListProductCategory = async (req, res) => {
         const params = req.query
-        let data
+        let data;
+        let limit = 6;
+        let totalRows;
+        const skip = (params.page - 1) * limit
         if (params.sort && params.type) {
-            data = await db.Product.findAll({
+            const { count, rows } = await db.Product.findAndCountAll({
                 include:
                     [{ model: db.Category, where: { slug: params.category } }]
                 ,
                 order: [
                     [params.sort, params.type],
                 ],
+                offset: skip,
+                limit: limit
 
             })
+            data = rows
+            totalRows = count
         } else {
 
-            data = await db.Product.findAll({
+            const { count, rows } = await db.Product.findAndCountAll({
                 include:
-                    [{ model: db.Category, where: { slug: params.category } }]
+                    [{ model: db.Category, where: { slug: params.category } }],
+
 
             })
+            data = rows
+            totalRows = count
         }
 
         // res.send(params)
         res.status(200).json({
             data, success: true,
-            message: 'successfully'
+            message: 'successfully',
+            totalRows: totalRows,
+            limit
         })
     }
     getOnlyProduct = async (req, res) => {
@@ -86,6 +113,7 @@ class ProductController {
 
         })
     }
+    // lấy danh sạhs sản phâm rrandom
     getRandome = async (req, res) => {
         const data = await db.Product.findAll({
             order: db.sequelize.random(), limit: 3
@@ -95,6 +123,7 @@ class ProductController {
             success: true
         })
     }
+    // tìm kiếm
     getSearch = async (req, res) => {
         try {
             let data = []
