@@ -4,8 +4,7 @@ const { fn } = require("sequelize");
 class ProductController {
     getListProduct = async (req, res) => {
         try {
-            let { sort, type, page = 1 } = req.query
-            let limit = 6;
+            let { sort, type, page = 1, limit = 6 } = req.query
             let totalRows;
             const skip = (page - 1) * limit
             let data = []
