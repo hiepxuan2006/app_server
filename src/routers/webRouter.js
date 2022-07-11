@@ -12,6 +12,7 @@ const apiProduct = require('../routers/api/Product')
 const apiCategoryPost = require('../routers/api/categoryPost')
 const apiCompany = require('../routers/api/Company')
 const apiSlider = require('../routers/api/Slider')
+const apiAcount = require('../routers/api/acount')
 // end route api
 const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart();
@@ -35,6 +36,7 @@ function route(app) {
     app.use('/api/categorypost', apiCategoryPost)
     app.use('/api/company', apiCompany)
     app.use('/api/Slider', apiSlider)
+    app.use('/api/acount', apiAcount)
 
 
 
