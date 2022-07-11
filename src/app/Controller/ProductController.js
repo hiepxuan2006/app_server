@@ -23,6 +23,7 @@ class ProductController {
         }
 
 
+        data = data.map(item => item.get({ plain: true }))
         return res.render('product/indexProduct', { data })
     }
     add = async (req, res) => {

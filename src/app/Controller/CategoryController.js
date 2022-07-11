@@ -15,6 +15,7 @@ class CategoryController {
                 ]
             })
         }
+        console.log(data);
         return res.render('category/indexCategory', { data })
     }
     add = async (req, res) => {
