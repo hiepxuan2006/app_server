@@ -15,10 +15,17 @@ const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart();
 const fs = require('fs');
 
+<<<<<<< HEAD:index.js
 const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+=======
+const PORT = process.env.PORT || 8080
+app.use(cors())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+>>>>>>> 5ca73dd8 (make it better 3):server.js
 
 // parse application/json
 app.engine(
