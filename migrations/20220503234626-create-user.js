@@ -18,9 +18,15 @@ module.exports = {
             name: {
                 type: Sequelize.STRING
             },
-            // isAdmin: {
-            //     type: Sequelize.STRING
-            // },
+            verified: {
+                type: Sequelize.BOOLEAN
+            },
+            avatar: {
+                type: Sequelize.STRING
+            },
+            isAdmin: {
+                type: Sequelize.BOOLEAN
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE
