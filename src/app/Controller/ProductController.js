@@ -1,7 +1,13 @@
 const { redirect } = require("express/lib/response")
+<<<<<<< HEAD
 const db = require("../../models")
 const menuDeqy = require('../../hepers/menuDeqy')
 const category = require("../../models/category")
+=======
+const db = require("../../../models")
+const menuDeqy = require('../../hepers/menuDeqy')
+const category = require("../../../models/category")
+>>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
 const ChangeToSlug = require("../../hepers/toSlug")
 const categoryLoop = require("../../hepers/menuDeqy")
 class ProductController {
@@ -23,6 +29,10 @@ class ProductController {
         }
 
 
+<<<<<<< HEAD
+=======
+        data = data.map(item => item.get({ plain: true }))
+>>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
         return res.render('product/indexProduct', { data })
     }
     add = async (req, res) => {
@@ -38,7 +48,11 @@ class ProductController {
             const newProduct = {
                 name: data.name,
                 price: data.price,
+<<<<<<< HEAD
                 feature_image_path: req.files.feature_image_path[0].path.replace('public\\', '/'),
+=======
+                feature_image_path: `upload/${req.files.feature_image_path[0].filename}`,
+>>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
                 content: data.contents,
                 category_id: data.category_id,
                 slug: ChangeToSlug(data.name)

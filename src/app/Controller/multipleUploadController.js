@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 const multipleUploadMiddleware = require('../Middleware/multipleUploadMiddleware')
 let debug = console.log.bind(console);
 let multipleUpload = async(req, res) => {
+=======
+const multipleUploadMiddleware = require('../Middleware/multipleUploadMiddleware');
+let debug = console.log.bind(console);
+let multipleUpload = async (req, res) => {
+>>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
     try {
         // thực hiện upload
         await multipleUploadMiddleware(req, res);
@@ -16,12 +22,21 @@ let multipleUpload = async(req, res) => {
         // Nếu có lỗi thì debug lỗi xem là gì ở đây
         debug(error);
         // Bắt luôn lỗi vượt quá số lượng file cho phép tải lên trong 1 lần
+<<<<<<< HEAD
         if (error.code === "LIMIT_UNEXPECTED_FILE") {
+=======
+        if (error.code === 'LIMIT_UNEXPECTED_FILE') {
+>>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
             return res.send(`Exceeds the number of files allowed to upload.`);
         }
         return res.send(`Error when trying upload many files: ${error}}`);
     }
 };
 module.exports = {
+<<<<<<< HEAD
     multipleUpload: multipleUpload
 };
+=======
+    multipleUpload: multipleUpload,
+};
+>>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
