@@ -15,17 +15,10 @@ const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart();
 const fs = require('fs');
 
-<<<<<<< HEAD:index.js
 const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-=======
-const PORT = process.env.PORT || 8080
-app.use(cors())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
->>>>>>> 5ca73dd8 (make it better 3):server.js
 
 // parse application/json
 app.engine(
@@ -44,7 +37,7 @@ app.set('views', path.join(__dirname, 'src/resources', 'view'));
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/stylesheets/fontawesome', express.static(__dirname + '/node_modules/@fortawesome/fontawesome-free/'));
 app.get('/', (req, res) => {
-    return res.send('hello');
+    return res.send('hx-fram api start');
 });
 
 route(app);
