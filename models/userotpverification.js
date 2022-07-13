@@ -1,25 +1,26 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class UserOTPVerification extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+    class UserOTPVerification extends Model {
+        /**
+         * Helper method for defining associations.
+         * This method is not a part of Sequelize lifecycle.
+         * The `models/index` file will call this method automatically.
+         */
+        static associate(models) {
+            // define association here
+        }
     }
-  }
-  UserOTPVerification.init({
-    user_id: DataTypes.STRING,
-    otp: DataTypes.STRING,
-    expiresAt: DataTypes.DATE
-  }, {
-    sequelize,
-    modelName: 'UserOTPVerification',
-  });
-  return UserOTPVerification;
+    UserOTPVerification.init(
+        {
+            user_id: DataTypes.STRING,
+            otp: DataTypes.STRING,
+            expiresAt: DataTypes.DATE,
+        },
+        {
+            sequelize,
+            modelName: 'UserOTPVerification',
+        },
+    );
+    return UserOTPVerification;
 };

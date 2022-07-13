@@ -1,13 +1,13 @@
 class AdminAuthController {
     login(req, res) {
         return res.render('auth/login', {
-            layout: false
+            layout: false,
         });
     }
     register(req, res) {
         return res.render('auth/register', {
-            layout: false
+            layout: false,
         });
     }
 }
-module.exports = new AdminAuthController
+module.exports = new AdminAuthController();

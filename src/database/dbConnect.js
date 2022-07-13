@@ -1,22 +1,21 @@
-const mysql = require('mysql')
-const config = require('../config/connectDB')
+const mysql = require('mysql');
+const config = require('../config/connectDB');
 const db = postgres.createConnection(config.postgres);
 
 module.exports = {
-    load: sql => {
+    load: (sql) => {
         return new Promise((resolve, reject) => {
-            db.connect()
+            db.connect();
             db.query(sql, (error, results, fields) => {
                 if (error) {
-                    reject(error)
+                    reject(error);
                 } else {
-                    resolve(results)
+                    resolve(results);
                 }
-                db.end()
-            })
-
-        })
+                db.end();
+            });
+        });
     },
     // add: (tableName, )
-}
-module.exports = db
+};
+module.exports = db;

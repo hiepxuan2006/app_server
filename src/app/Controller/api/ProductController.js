@@ -1,39 +1,31 @@
-const db = require("../../../../models")
-const { Op } = require("sequelize");
-const { fn } = require("sequelize");
+const db = require('../../../../models');
+const { Op } = require('sequelize');
+const { fn } = require('sequelize');
 class ProductController {
     getListProduct = async (req, res) => {
         try {
-            let { sort, type, page = 1, limit = 6 } = req.query
+            let { sort, type, page = 1, limit = 6 } = req.query;
             let totalRows;
-            const skip = (page - 1) * limit
-            let data = []
+            const skip = (page - 1) * limit;
+            let data = [];
 
             if (sort && type) {
                 const { count, rows } = await db.Product.findAndCountAll({
-                    include:
-                        [{ model: db.Category, }],
-                    order: [
-                        [sort, type],
-                    ],
+                    include: [{ model: db.Category }],
+                    order: [[sort, type]],
                     offset: skip,
-                    limit: limit
-
-                })
-                data = rows
-                totalRows = count
-
+                    limit: limit,
+                });
+                data = rows;
+                totalRows = count;
             } else {
-
                 const { count, rows } = await db.Product.findAndCountAll({
-                    include:
-                        [{ model: db.Category, }],
+                    include: [{ model: db.Category }],
                     offset: skip,
-                    limit: limit
-
-                })
-                data = rows
-                totalRows = count
+                    limit: limit,
+                });
+                data = rows;
+                totalRows = count;
             }
 
             if (data) {
@@ -42,107 +34,89 @@ class ProductController {
                     success: true,
                     totalRows: totalRows,
                     limit: limit,
-                    message: 'SuccessFully'
-                })
-            }
-            else {
+                    message: 'SuccessFully',
+                });
+            } else {
                 res.status(500).json({
                     data: data,
                     success: false,
-                    message: 'Server disconected!'
-                })
+                    message: 'Server disconected!',
+                });
             }
-
-        } catch (error) {
-
-        }
-
-    }
+        } catch (error) {}
+    };
     getListProductCategory = async (req, res) => {
-        const params = req.query
+        const params = req.query;
         let data;
         let limit = 6;
         let totalRows;
-        const skip = (params.page - 1) * limit
+        const skip = (params.page - 1) * limit;
         if (params.sort && params.type) {
             const { count, rows } = await db.Product.findAndCountAll({
-                include:
-                    [{ model: db.Category, where: { slug: params.category } }]
-                ,
-                order: [
-                    [params.sort, params.type],
-                ],
+                include: [{ model: db.Category, where: { slug: params.category } }],
+                order: [[params.sort, params.type]],
                 offset: skip,
-                limit: limit
-
-            })
-            data = rows
-            totalRows = count
+                limit: limit,
+            });
+            data = rows;
+            totalRows = count;
         } else {
-
             const { count, rows } = await db.Product.findAndCountAll({
-                include:
-                    [{ model: db.Category, where: { slug: params.category } }],
-
-
-            })
-            data = rows
-            totalRows = count
+                include: [{ model: db.Category, where: { slug: params.category } }],
+            });
+            data = rows;
+            totalRows = count;
         }
 
         // res.send(params)
         res.status(200).json({
-            data, success: true,
+            data,
+            success: true,
             message: 'successfully',
             totalRows: totalRows,
-            limit
-        })
-    }
+            limit,
+        });
+    };
     getOnlyProduct = async (req, res) => {
-        const slug = req.params.slug
+        const slug = req.params.slug;
         const data = await db.Product.findOne({
             where: { slug: slug },
-            include:
-                [{ model: db.Category }]
-            ,
-        })
+            include: [{ model: db.Category }],
+        });
 
         res.status(200).json({
-            data: data
-
-        })
-    }
+            data: data,
+        });
+    };
     // lấy danh sạhs sản phâm rrandom
     getRandome = async (req, res) => {
         const data = await db.Product.findAll({
-            order: db.sequelize.random(), limit: 3
-        })
+            order: db.sequelize.random(),
+            limit: 3,
+        });
         res.status(200).json({
-            data, message: 'successfully',
-            success: true
-        })
-    }
+            data,
+            message: 'successfully',
+            success: true,
+        });
+    };
     // tìm kiếm
     getSearch = async (req, res) => {
         try {
-            let data = []
-            let { q, type } = req.query
-            q = q.toLowerCase()
+            let data = [];
+            let { q, type } = req.query;
+            q = q.toLowerCase();
             if (type === 'less') {
                 data = await db.Product.findAll({
-                    where: { 'name': { [Op.like]: '%' + q + '%' } },
-                    limit: 5
-                })
-
+                    where: { name: { [Op.like]: '%' + q + '%' } },
+                    limit: 5,
+                });
             }
             res.status(200).json({
                 data,
-                message: ''
-            })
-        } catch (error) {
-
-        }
-    }
-
+                message: '',
+            });
+        } catch (error) {}
+    };
 }
-module.exports = new ProductController
+module.exports = new ProductController();

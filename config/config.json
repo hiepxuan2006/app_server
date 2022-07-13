@@ -5,16 +5,16 @@
         "database": "d598v9c7csf6te",
         "host": "ec2-54-161-255-125.compute-1.amazonaws.com",
         "dialect": "postgres",
-        "logging":false,
-        "timezone":"+07:00",
-        "dialectOptions":{
-            "ssl":{
-                "require":true,
-                "rejectUnauthorized":false
+        "logging": false,
+        "timezone": "+07:00",
+        "dialectOptions": {
+            "ssl": {
+                "require": true,
+                "rejectUnauthorized": false
             }
         }
     },
-   
+
     "test": {
         "username": "root",
         "password": null,

@@ -6,38 +6,38 @@ module.exports = {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
-                type: Sequelize.INTEGER
+                type: Sequelize.INTEGER,
             },
             email: {
                 type: Sequelize.STRING,
-                default: 0
+                default: 0,
             },
             password: {
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
             },
             name: {
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
             },
             verified: {
-                type: Sequelize.BOOLEAN
+                type: Sequelize.BOOLEAN,
             },
             avatar: {
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
             },
             isAdmin: {
-                type: Sequelize.BOOLEAN
+                type: Sequelize.BOOLEAN,
             },
             createdAt: {
                 allowNull: false,
-                type: Sequelize.DATE
+                type: Sequelize.DATE,
             },
             updatedAt: {
                 allowNull: false,
-                type: Sequelize.DATE
-            }
+                type: Sequelize.DATE,
+            },
         });
     },
     async down(queryInterface, Sequelize) {
         await queryInterface.dropTable('Users');
-    }
+    },
 };
