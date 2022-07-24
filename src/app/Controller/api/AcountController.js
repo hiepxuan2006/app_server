@@ -1,4 +1,4 @@
-const db = require('../../../../models');
+const db = require('../../../models');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
@@ -39,7 +39,14 @@ class AcountController {
             };
             await db.UserOTPVerification.create(newUserOtp);
             if (isRegister) {
-                senEmail({ email, otp });
+                const mailVerify = {
+                    from: '"HX-Farm 👻" hiepxuan2605@gmail.com', // sender address
+                    to: ` ${email}`, // list of receivers
+                    subject: 'Xác nhận email ✔', // Subject line
+                    // text: "Hello world?", // plain text body
+                    html: `<p>Mã xác nhận của ban là :<b>${otp}</b> .Hiệu lục trong vòng 1 giờ`, // html body
+                };
+                senEmail(mailVerify);
                 res.status(200).json({
                     message: 'Mã xác nhận đã được gửi tới email của bạn',
                     data: {
@@ -56,8 +63,9 @@ class AcountController {
         }
     };
     verifyOtpUser = async (req, res) => {
+        const { user_id, otp } = req.body;
+        console.log(req.body);
         try {
-            const { user_id, otp } = req.body;
             const UserVerify = await db.UserOTPVerification.findOne({
                 where: { user_id: user_id },
             });
@@ -72,12 +80,15 @@ class AcountController {
                     await db.UserOTPVerification.destroy({
                         where: { user_id: user_id },
                     });
-                    throw new Error('Mã xác nhận không chính xác hoặc đã hết hạn');
+                    throw new Error(
+                        'Mã xác nhận không chính xác hoặc đã hết hạn',
+                    );
                 } else {
                     const isOtpvery = await bcrypt.compareSync(otp, hashOtp);
                     if (!isOtpvery) {
                         res.status(401).json({
-                            message: 'Mã xác nhận không chính xác. vui lòng nhập lại?',
+                            message:
+                                'Mã xác nhận không chính xác. vui lòng nhập lại?',
                             success: false,
                         });
                     } else {
@@ -109,29 +120,47 @@ class AcountController {
     login = async (req, res) => {
         try {
             const { email, password } = req.body;
+            console.log(req.body.password);
+            console.log(email);
             let user = await db.User.findOne({
                 where: { email: email },
             });
-            if (user.length <= 0) {
+            console.log(user);
+            if (user === null) {
                 return res.status(401).json({
-                    message: 'Mật khẩu hoặc email không chínnh xác. Vui lòng nhập lại!',
+                    message:
+                        'Mật khẩu hoặc email không chínnh xác. Vui lòng nhập lại!',
                 });
             } else {
                 const { expiresAt } = user;
                 if (expiresAt < Date.now()) {
                     return res.status(401).json({
-                        message: 'Taif khoản chưa được xác nhận. Vui lòng xác nhận!',
+                        message:
+                            'Taif khoản chưa được xác nhận. Vui lòng xác nhận!',
                     });
                 } else {
-                    const valiPass = await bcrypt.compareSync(password, user.password);
+                    const valiPass = await bcrypt.compareSync(
+                        password,
+                        user.password,
+                    );
                     if (!valiPass) {
                         res.status(401).json({
-                            message: 'Email hoặc mật khẩu không chính xác. vui lòng nhập lại?',
+                            message:
+                                'Email hoặc mật khẩu không chính xác. vui lòng nhập lại?',
                             success: false,
                         });
                     } else {
-                        const token = await jwt.sign({ id: user.id, email: user.email }, process.env.SECRET_KEY, {
-                            expiresIn: '1d',
+                        const token = await jwt.sign(
+                            { id: user.id, email: user.email },
+                            process.env.SECRET_KEY,
+                            {
+                                expiresIn: '1d',
+                            },
+                        );
+                        res.cookie('token', token, {
+                            maxAge: 365 * 24 * 60 * 60 * 100,
+                            httpOnly: true,
+                            //secure: true;
                         });
                         res.status(200).json({
                             message: 'Đăng nhập thành công',
@@ -159,15 +188,17 @@ class AcountController {
                 if (!user)
                     res.status(401).json({
                         success: false,
-                        message: 'Chưa đăng nhập ',
+                        message: ' 1Chưa đăng nhập ',
                     });
-                if (!user.verified)
+                if (!user.verified) {
+                    console.log(!user.verified);
                     res.status(401).json({
-                        message: 'Chưa đăng nhập',
+                        message: '2Chưa đăng nhập',
                     });
+                }
                 res.status(200).json({
                     success: true,
-                    user,
+                    data: user,
                     time: req.user.exp,
                 });
             } catch (error) {

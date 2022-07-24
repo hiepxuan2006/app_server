@@ -1,4 +1,4 @@
-const db = require('../../../models');
+const db = require('../../models');
 const menuDeqy = require('../../hepers/menuDeqy');
 const ChangeToSlug = require('../../hepers/toSlug');
 
@@ -31,7 +31,10 @@ class CategoryController {
         const newCtegory = {
             name: data.name,
             parent_id: data.parent_id,
-            image_path: req.files.feature_image_path[0].path.replace('public\\', '/'),
+            image_path: req.files.feature_image_path[0].path.replace(
+                'public\\',
+                '/',
+            ),
             slug: ChangeToSlug(data.name),
         };
         const isCreate = await db.Category.create(newCtegory);

@@ -1,9 +1,8 @@
 const { redirect } = require('express/lib/response');
-const db = require('../../../models');
+const db = require('../../models');
 const menuDeqy = require('../../hepers/menuDeqy');
 const ChangeToSlug = require('../../hepers/toSlug');
-const categoryLoop = require('../../hepers/menuDeqy');
-const CategoryPost = require('../../../models/categorypost');
+
 class ProductController {
     index = async (req, res) => {
         let data = await db.Post.findAll({
@@ -37,7 +36,10 @@ class ProductController {
             const data = req.body;
             const newProduct = {
                 name: data.name,
-                image_thumnail: req.files.feature_image_path[0].path.replace('public\\', '/'),
+                image_thumnail: req.files.feature_image_path[0].path.replace(
+                    'public\\',
+                    '/',
+                ),
                 description: data.description,
                 categorypost_id: data.categorypost_id,
                 slug: ChangeToSlug(data.name),

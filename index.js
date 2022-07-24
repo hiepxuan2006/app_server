@@ -9,8 +9,8 @@ const path = require('path');
 const sortTable = require('./src/hepers/sortTable');
 require('dotenv').config();
 const route = require('./src/routers/webRouter');
-const connectDB = require('./config/connectDB');
-
+const connectDB = require('./src/config/connectDB');
+const cookieParser = require('cookie-parser');
 const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart();
 const fs = require('fs');
@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(cookieParser());
 // parse application/json
 app.engine(
     'hbs',

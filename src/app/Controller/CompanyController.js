@@ -1,9 +1,8 @@
 const { redirect } = require('express/lib/response');
-const db = require('../../../models');
-const menuDeqy = require('../../hepers/menuDeqy');
-const product = require('../../../models/product');
+const db = require('../../models');
+
 const ChangeToSlug = require('../../hepers/toSlug');
-const categoryLoop = require('../../hepers/menuDeqy');
+
 class CompanyController {
     index = async (req, res) => {
         let data = await db.Company.findAll({
@@ -21,7 +20,10 @@ class CompanyController {
             const data = req.body;
             const newCompany = {
                 name: data.name,
-                image_detail: req.files.feature_image_path[0].path.replace('public\\', '/'),
+                image_detail: req.files.feature_image_path[0].path.replace(
+                    'public\\',
+                    '/',
+                ),
                 description: data.description,
                 slug: ChangeToSlug(data.name),
             };

@@ -9,7 +9,6 @@ router.get('/list', productController.getListProductCategory);
 router.get('/san-pham/:slug', productController.getOnlyProduct);
 // randome sảm phẩm
 router.get('/random', productController.getRandome);
-
 // tìm kieemssanr phẩm
 router.get('/search', productController.getSearch);
 

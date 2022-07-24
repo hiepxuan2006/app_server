@@ -13,11 +13,20 @@ const apiCategoryPost = require('../routers/api/categoryPost');
 const apiCompany = require('../routers/api/Company');
 const apiSlider = require('../routers/api/Slider');
 const apiAcount = require('../routers/api/acount');
+const apiOrder = require('../routers/api/Order');
 // end route api
+// api admin
+const apiAdminCategory = require('../routers/admin/apiAdminCategory');
+const apiAdminProduct = require('../routers/admin/apiAdminProduct');
+const apiAdminOrder = require('../routers/admin/apiAdminOrder');
+const apiAdminSlider = require('../routers/admin/sliderAdmin');
+const apiAcountAdmin = require('../routers/admin/acountAdmin');
+
+// end api admin
 const multipart = require('connect-multiparty');
-const multipartMiddleware = multipart();
 const fs = require('fs');
 const path = require('path');
+const multipartMiddleware = multipart();
 
 function route(app) {
     app.use('/admin', adminAuth);
@@ -35,36 +44,39 @@ function route(app) {
     app.use('/api/product', apiProduct);
     app.use('/api/categorypost', apiCategoryPost);
     app.use('/api/company', apiCompany);
-    app.use('/api/Slider', apiSlider);
+    app.use('/api/slider', apiSlider);
     app.use('/api/acount', apiAcount);
+    app.use('/api/order', apiOrder);
+    // api admin
+    app.use('/api/admin/category', apiAdminCategory);
+    app.use('/api/admin/product', apiAdminProduct);
+    app.use('/api/admin/order', apiAdminOrder);
+    app.use('/api/admin/slider', apiAdminSlider);
+    app.use('/api/admin/acount', apiAcountAdmin);
 
     // up load anh bai pót
     app.post('/upload', multipartMiddleware, (req, res) => {
         try {
             fs.readFile(req.files.upload.path, function (err, data) {
-                var newPath = 'public/upload/' + req.files.upload.name;
+                var newPath = 'public/upload/images/' + req.files.upload.name;
                 fs.writeFile(newPath, data, function (err) {
                     if (err) console.log({ err: err });
                     else {
+                        console.log(data);
                         let fileName = req.files.upload.name;
-                        let url = '/upload/' + fileName;
-                        let msg = 'Upload successfully';
-                        let funcNum = req.query.CKEditorFuncNum;
-                        console.log({ url, msg, funcNum });
-                        res.status(201).send(
-                            "<script>window.parent.CKEDITOR.tools.callFunction('" +
-                                funcNum +
-                                "','" +
-                                url +
-                                "','" +
-                                msg +
-                                "');</script>",
-                        );
+                        let url = '/upload/images/' + fileName;
+                        res.status(201).json({
+                            uploaded: true,
+                            url: `http://localhost:8080${url}`,
+                        });
                     }
                 });
             });
         } catch (error) {
-            console.log(error.message);
+            res.status(500).json({
+                success: false,
+                message: error.message,
+            });
         }
     });
 }

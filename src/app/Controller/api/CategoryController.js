@@ -1,23 +1,23 @@
-const db = require('../../../../models');
+const ChangeToSlug = require('../../../hepers/toSlug');
+const db = require('../../../models');
 
 class CategoryController {
     // danh sachs category
-    getCategory = async (req, res) => {
-        let data = await db.Category.findAll({
-            raw: true,
-        });
-        if (data) {
-            res.status(200).json({
-                data: data,
+    getCategories = async (req, res) => {
+        try {
+            const dataAll = await db.Category.findAll({});
+            return res.status(200).json({
                 success: true,
-                message: 'Successfully',
+                message: 'Successfuly',
+                data: dataAll,
             });
-        } else {
+        } catch (error) {
             res.status(500).json({
                 success: false,
-                message: 'faile',
+                message: error.message,
             });
         }
     };
 }
+
 module.exports = new CategoryController();
