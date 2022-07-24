@@ -1,5 +1,5 @@
 const ChangeToSlug = require('../../../hepers/toSlug');
-const db = require('../../../models');
+const db = require('../../../../models');
 
 class ProductAdminController {
     getListProduct = async (req, res) => {

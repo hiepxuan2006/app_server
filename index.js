@@ -9,7 +9,7 @@ const path = require('path');
 const sortTable = require('./src/hepers/sortTable');
 require('dotenv').config();
 const route = require('./src/routers/webRouter');
-const connectDB = require('./src/config/connectDB');
+const connectDB = require('./config/connectDB');
 const cookieParser = require('cookie-parser');
 const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart();

@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const sendEmail = require('../../../hepers/sendEmail');
-const db = require('../../../models');
+const db = require('../../../../models');
 const OrderController = {
     postOrder: async (req, res) => {
         try {

@@ -67,7 +67,7 @@ function route(app) {
                         let url = '/upload/images/' + fileName;
                         res.status(201).json({
                             uploaded: true,
-                            url: `http://localhost:8080${url}`,
+                            url: `${process.env.URL}${url}`,
                         });
                     }
                 });

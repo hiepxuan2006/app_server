@@ -3,7 +3,7 @@ const Swal = require('sweetalert2');
 const menuDeqy = require('../../hepers/menuDeqy');
 const categoryLoop = require('../../hepers/menuDeqy');
 const ChangeToSlug = require('../../hepers/toSlug');
-const db = require('../../models');
+const db = require('../../../models');
 
 class CategoryControllerPost {
     index = async (req, res) => {

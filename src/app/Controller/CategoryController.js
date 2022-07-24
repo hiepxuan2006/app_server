@@ -1,4 +1,4 @@
-const db = require('../../models');
+const db = require('../../../models');
 const menuDeqy = require('../../hepers/menuDeqy');
 const ChangeToSlug = require('../../hepers/toSlug');
 

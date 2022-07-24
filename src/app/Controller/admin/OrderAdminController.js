@@ -1,4 +1,4 @@
-const db = require('../../../models');
+const db = require('../../../../models');
 
 class OrderAdminController {
     getAllOrder = async (req, res) => {

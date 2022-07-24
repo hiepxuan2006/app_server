@@ -1,5 +1,5 @@
 const { redirect } = require('express/lib/response');
-const db = require('../../models');
+const db = require('../../../models');
 const menuDeqy = require('../../hepers/menuDeqy');
 const ChangeToSlug = require('../../hepers/toSlug');
 

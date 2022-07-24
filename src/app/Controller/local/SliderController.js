@@ -1,4 +1,4 @@
-const db = require('../../../models');
+const db = require('../../../../models');
 
 class CategoryController {
     index = async (req, res) => {

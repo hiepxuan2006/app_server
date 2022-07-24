@@ -1,4 +1,4 @@
-const db = require('../../../models');
+const db = require('../../../../models');
 
 class AcountAdmin {
     login = async (req, res) => {
