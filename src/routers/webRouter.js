@@ -54,6 +54,14 @@ function route(app) {
     app.use('/api/admin/slider', apiAdminSlider);
     app.use('/api/admin/acount', apiAcountAdmin);
 
+    // ////////////
+    app.use((err, req, res, next) => {
+        res.status(err.status || 500).json({
+            status: err.status,
+            message: err.message,
+        });
+    });
+
     // up load anh bai pót
     app.post('/upload', multipartMiddleware, (req, res) => {
         try {
