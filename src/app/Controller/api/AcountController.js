@@ -5,20 +5,17 @@ const salt = bcrypt.genSaltSync(saltRounds);
 const senEmail = require('../../../hepers/sendEmail');
 const jwt = require('jsonwebtoken');
 const { use } = require('../../../routers/api/acount');
+const createError = require('http-errors');
 class AcountController {
-    register = async (req, res) => {
+    register = async (req, res, next) => {
         try {
             const { name, email, password } = req.body;
-
             const isUser = await db.User.findAll({
                 where: { email: email },
             });
-            console.log(isUser.length > 0 ? true : false);
-            if (isUser.length)
-                return res.status(400).json({
-                    success: false,
-                    message: 'Email đã được đăng ký',
-                });
+            console.log(isUser);
+            if (isUser.length > 0)
+                return next(createError(401, 'Email đã được đăng ký'));
 
             const hashPassword = await bcrypt.hashSync(password, salt);
             const newUser = {
@@ -33,7 +30,7 @@ class AcountController {
             const otp = `${Math.floor(100000 + Math.random() * 900000)}`;
             const hashOtp = await bcrypt.hashSync(otp, saltRounds);
             const newUserOtp = {
-                user_id: isRegister.id,
+                email: isRegister.email,
                 otp: hashOtp,
                 expiresAt: Date.now() + 3600000,
             };
@@ -53,6 +50,7 @@ class AcountController {
                         email: email,
                         user_id: isRegister.id,
                     },
+                    success: true,
                 });
             }
         } catch (error) {
@@ -63,13 +61,13 @@ class AcountController {
         }
     };
     verifyOtpUser = async (req, res) => {
-        const { user_id, otp } = req.body;
+        const { email, otp } = req.body;
         console.log(req.body);
         try {
             const UserVerify = await db.UserOTPVerification.findOne({
-                where: { user_id: user_id },
+                where: { email: email },
             });
-            if (UserVerify.length <= 0) {
+            if (!UserVerify) {
                 throw new Error(
                     'Tài khoản không xác định hoặc đã được xác nhận xác nhận.Vui lòng đăng kí hoặc đăng nhập',
                 );
@@ -78,11 +76,9 @@ class AcountController {
                 const hashOtp = UserVerify.otp;
                 if (expiresAt < Date.now()) {
                     await db.UserOTPVerification.destroy({
-                        where: { user_id: user_id },
+                        where: { email: email },
                     });
-                    throw new Error(
-                        'Mã xác nhận không chính xác hoặc đã hết hạn',
-                    );
+                    throw new Error('Mã xác nhận không còn hiệu lực');
                 } else {
                     const isOtpvery = await bcrypt.compareSync(otp, hashOtp);
                     if (!isOtpvery) {
@@ -97,11 +93,11 @@ class AcountController {
                                 verified: true,
                             },
                             {
-                                where: { id: user_id },
+                                where: { email: email },
                             },
                         );
                         await db.UserOTPVerification.destroy({
-                            where: { user_id: user_id },
+                            where: { email: email },
                         });
                         return res.status(200).json({
                             message: 'Xác nhận thành công',
@@ -117,6 +113,27 @@ class AcountController {
             });
         }
     };
+    searchUser = async (req, res, next) => {
+        try {
+            const { email } = req.body;
+            const data = await db.User.findOne({
+                where: { email },
+            });
+            if (!data)
+                return next(createError((403, 'tài khoản không tông tại')));
+            const { verified } = data;
+            if (verified)
+                return next(createError(401, 'Tài khoản đã được xác nhận'));
+            return res.status(200).json({
+                email,
+                success: true,
+                message: 'ok',
+            });
+        } catch (error) {
+            return next(createError(error.status, `${error.message}`));
+        }
+    };
+
     login = async (req, res) => {
         try {
             const { email, password } = req.body;
@@ -125,15 +142,14 @@ class AcountController {
             let user = await db.User.findOne({
                 where: { email: email },
             });
-            console.log(user);
-            if (user === null) {
+            if (!user) {
                 return res.status(401).json({
                     message:
                         'Mật khẩu hoặc email không chínnh xác. Vui lòng nhập lại!',
                 });
             } else {
-                const { expiresAt } = user;
-                if (expiresAt < Date.now()) {
+                const { verified } = user;
+                if (!verified) {
                     return res.status(401).json({
                         message:
                             'Taif khoản chưa được xác nhận. Vui lòng xác nhận!',
@@ -144,7 +160,7 @@ class AcountController {
                         user.password,
                     );
                     if (!valiPass) {
-                        res.status(401).json({
+                        return res.status(401).json({
                             message:
                                 'Email hoặc mật khẩu không chính xác. vui lòng nhập lại?',
                             success: false,
@@ -209,4 +225,5 @@ class AcountController {
             }
     };
 }
+
 module.exports = new AcountController();

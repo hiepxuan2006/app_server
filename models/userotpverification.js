@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     }
     UserOTPVerification.init(
         {
-            user_id: DataTypes.STRING,
+            email: DataTypes.STRING,
             otp: DataTypes.STRING,
             expiresAt: DataTypes.DATE,
         },
