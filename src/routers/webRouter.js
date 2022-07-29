@@ -1,11 +1,4 @@
-const sortMiddleware = require('../app/Middleware/SortMiddlewar');
-const adminAuth = require('../routers/Local/adminAuth');
-const category = require('../routers/Local/category');
-const categoryPost = require('../routers/Local/categoryPost');
-const product = require('../routers/Local/product');
-const post = require('../routers/Local/post');
-const company = require('../routers/Local/company');
-const slider = require('../routers/Local/Slider');
+
 // start route api
 const apiCategory = require('../routers/api/Category');
 const apiProduct = require('../routers/api/Product');
@@ -29,16 +22,7 @@ const path = require('path');
 const multipartMiddleware = multipart();
 
 function route(app) {
-    app.use('/admin', adminAuth);
-    app.use('/admin/category', category);
-    app.use('/admin/danh-muc-bai-viet', categoryPost);
-    app.use('/admin/product', product);
-    app.use('/admin/post', post);
-    app.use('/admin/company', company);
-    app.use('/admin/slider', slider);
-    app.get('/admin', (req, res) => {
-        return res.render('home');
-    });
+   
     //api----------------------------------------------
     app.use('/api/category', apiCategory);
     app.use('/api/product', apiProduct);
