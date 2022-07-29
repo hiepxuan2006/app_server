@@ -9,6 +9,7 @@ class OrderAdminController {
                     { model: db.Product },
                     { model: db.User, attributes: { exclude: ['password'] } },
                 ],
+                order:[['createdAt','desc']]
             });
             if (data) {
                 res.status(200).json({

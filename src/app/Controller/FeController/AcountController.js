@@ -39,7 +39,14 @@ class AcountController {
             };
             await db.UserOTPVerification.create(newUserOtp);
             if (isRegister) {
-                senEmail({ email, otp });
+                const sendOtp = {
+                    from: '"HX-Farm 👻" hiepxuan2605@gmail.com', // sender address
+                    to: ` ${email}`, // list of receivers
+                    subject: 'Xác nhận email ✔', // Subject line
+                    // text: "Hello world?", // plain text body
+                    html: `<p>Mã xác nhận của ban là :<b>${otp}</b> .Hiệu lục trong vòng 1 giờ`, // html body
+                }
+                senEmail(sendOtp);
                 res.status(200).json({
                     message: 'Mã xác nhận đã được gửi tới email của bạn',
                     data: {

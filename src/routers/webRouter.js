@@ -1,3 +1,7 @@
+const multipart = require('connect-multiparty');
+const fs = require('fs');
+const path = require('path');
+const multipartMiddleware = multipart();
 
 // start route api
 const apiCategory = require('../routers/api/Category');
@@ -9,17 +13,15 @@ const apiAcount = require('../routers/api/acount');
 const apiOrder = require('../routers/api/Order');
 // end route api
 // api admin
-const apiAdminCategory = require('../routers/admin/apiAdminCategory');
-const apiAdminProduct = require('../routers/admin/apiAdminProduct');
-const apiAdminOrder = require('../routers/admin/apiAdminOrder');
-const apiAdminSlider = require('../routers/admin/sliderAdmin');
-const apiAcountAdmin = require('../routers/admin/acountAdmin');
+const apiAdminCategory = require('./apiAdmin/RouterAdminCategory');
+const apiAdminProduct = require('./apiAdmin/RouterAdminProduct');
+const apiAdminOrder = require('./apiAdmin/RouterAdminOrder');
+const apiAdminSlider = require('./apiAdmin/RouterSliderAdmin');
+const apiAcountAdmin = require('./apiAdmin/RouterAcountAdmin');
+const apiCompanyAdmin = require('./apiAdmin/RouterCompanyAdmin');
+const apiUserAdmin = require('./apiAdmin/RouterUserAdmin');
 
 // end api admin
-const multipart = require('connect-multiparty');
-const fs = require('fs');
-const path = require('path');
-const multipartMiddleware = multipart();
 
 function route(app) {
    
@@ -37,6 +39,8 @@ function route(app) {
     app.use('/api/admin/order', apiAdminOrder);
     app.use('/api/admin/slider', apiAdminSlider);
     app.use('/api/admin/acount', apiAcountAdmin);
+    app.use('/api/admin/company', apiCompanyAdmin);
+    app.use('/api/admin/user', apiUserAdmin);
 
     // ////////////
     app.use((err, req, res, next) => {
@@ -46,7 +50,7 @@ function route(app) {
         });
     });
 
-    // up load anh bai pót
+    // up load anh bai product
     app.post('/upload', multipartMiddleware, (req, res) => {
         try {
             fs.readFile(req.files.upload.path, function (err, data) {

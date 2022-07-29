@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const productController = require('../../app/Controller/api/ProductController');
+const productController = require('../../app/Controller/FeController/ProductController');
 // lấy danh sách sản phẩm
 router.get('/', productController.getListProduct);
 // laay ra danh sách sản oham theo categori
