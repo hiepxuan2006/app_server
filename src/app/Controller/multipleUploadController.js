@@ -1,23 +1,6 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-const multipleUploadMiddleware = require('../Middleware/multipleUploadMiddleware')
-let debug = console.log.bind(console);
-let multipleUpload = async(req, res) => {
-=======
 const multipleUploadMiddleware = require('../Middleware/multipleUploadMiddleware');
 let debug = console.log.bind(console);
 let multipleUpload = async (req, res) => {
->>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
-=======
-const multipleUploadMiddleware = require('../Middleware/multipleUploadMiddleware');
-let debug = console.log.bind(console);
-let multipleUpload = async (req, res) => {
-=======
-const multipleUploadMiddleware = require('../Middleware/multipleUploadMiddleware')
-let debug = console.log.bind(console);
-let multipleUpload = async(req, res) => {
->>>>>>> 9976f261982f6fd2df5b85cfcaee3acac0ed7665
->>>>>>> c8c0431c4f4942e507af55e1cddb489657edc5a1
     try {
         // thực hiện upload
         await multipleUploadMiddleware(req, res);
@@ -33,37 +16,12 @@ let multipleUpload = async(req, res) => {
         // Nếu có lỗi thì debug lỗi xem là gì ở đây
         debug(error);
         // Bắt luôn lỗi vượt quá số lượng file cho phép tải lên trong 1 lần
-<<<<<<< HEAD
-<<<<<<< HEAD
-        if (error.code === "LIMIT_UNEXPECTED_FILE") {
-=======
         if (error.code === 'LIMIT_UNEXPECTED_FILE') {
->>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
-=======
-        if (error.code === 'LIMIT_UNEXPECTED_FILE') {
-=======
-        if (error.code === "LIMIT_UNEXPECTED_FILE") {
->>>>>>> 9976f261982f6fd2df5b85cfcaee3acac0ed7665
->>>>>>> c8c0431c4f4942e507af55e1cddb489657edc5a1
             return res.send(`Exceeds the number of files allowed to upload.`);
         }
         return res.send(`Error when trying upload many files: ${error}}`);
     }
 };
 module.exports = {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    multipleUpload: multipleUpload
-};
-=======
     multipleUpload: multipleUpload,
 };
->>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
-=======
-    multipleUpload: multipleUpload,
-};
-=======
-    multipleUpload: multipleUpload
-};
->>>>>>> 9976f261982f6fd2df5b85cfcaee3acac0ed7665
->>>>>>> c8c0431c4f4942e507af55e1cddb489657edc5a1

@@ -1,16 +1,6 @@
 const ChangeToSlug = (text) => {
     var slug;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
-=======
-=======
-
->>>>>>> 9976f261982f6fd2df5b85cfcaee3acac0ed7665
->>>>>>> c8c0431c4f4942e507af55e1cddb489657edc5a1
     //Đổi chữ hoa thành chữ thường
     slug = text.toLowerCase();
 
@@ -25,18 +15,7 @@ const ChangeToSlug = (text) => {
     //Xóa các ký tự đặt biệt
     slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
     //Đổi khoảng trắng thành ký tự gạch ngang
-<<<<<<< HEAD
-<<<<<<< HEAD
-    slug = slug.replace(/ /gi, "-");
-=======
     slug = slug.replace(/ /gi, '-');
->>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
-=======
-    slug = slug.replace(/ /gi, '-');
-=======
-    slug = slug.replace(/ /gi, "-");
->>>>>>> 9976f261982f6fd2df5b85cfcaee3acac0ed7665
->>>>>>> c8c0431c4f4942e507af55e1cddb489657edc5a1
     //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
     //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
     slug = slug.replace(/\-\-\-\-\-/gi, '-');
@@ -46,23 +25,6 @@ const ChangeToSlug = (text) => {
     //Xóa các ký tự gạch ngang ở đầu và cuối
     slug = '@' + slug + '@';
     slug = slug.replace(/\@\-|\-\@|\@/gi, '');
-<<<<<<< HEAD
-<<<<<<< HEAD
-    return slug
-}
-module.exports = ChangeToSlug
-=======
     return slug;
 };
 module.exports = ChangeToSlug;
->>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
-=======
-    return slug;
-};
-module.exports = ChangeToSlug;
-=======
-    return slug
-}
-module.exports = ChangeToSlug
->>>>>>> 9976f261982f6fd2df5b85cfcaee3acac0ed7665
->>>>>>> c8c0431c4f4942e507af55e1cddb489657edc5a1

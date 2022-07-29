@@ -9,11 +9,13 @@ const sendEmail = async (dataEmail) => {
             user: process.env.EMAIL_APP, // generated ethereal user
             pass: process.env.EMAIL_APP_PASS, // generated ethereal password
         },
-        tls: {
-            rejectUnauthorized: false,
-        },
     });
-    let info = await transporter.sendMail(dataEmail);
+    let info = await transporter.sendMail({
+        from: '"HX-Farm 👻" hiepxuan2605@gmail.com', // sender address
+        to: ` ${dataEmail.email}`, // list of receivers
+        subject: 'Xác nhận email ✔', // Subject line
+        // text: "Hello world?", // plain text body
+        html: `<p>Mã xác nhận của ban là :<b>${dataEmail.otp}</b> .Hiệu lục trong vòng 1 giờ`, // html body
+    });
 };
 module.exports = sendEmail;
-const form = {};
