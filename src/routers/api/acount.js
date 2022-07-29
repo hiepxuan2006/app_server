@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const acountController = require('../../app/Controller/api/AcountController');
+const acountController = require('../../app/Controller/FeController/AcountController');
 const verifyToken = require('../../app/Middleware/verifyToken');
 
 router.post('/register', acountController.register);

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const categoryPostController = require('../../app/Controller/api/CategoryPostController');
+const categoryPostController = require('../../app/Controller/FeController/CategoryPostController');
 
 //
 router.get('/', categoryPostController.getlist);

@@ -58,7 +58,7 @@ class CategoryAdminController {
     };
     addCtegory = async (req, res) => {
         try {
-            const { name, image_path } = req.body;
+            const { name } = req.body;
             const newCategory = {
                 name: name,
                 parent_id: 0,

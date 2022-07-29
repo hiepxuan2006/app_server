@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const productAdminController = require('../../app/Controller/admin/ProductAdminController');
+const productAdminController = require('../../app/Controller/adminController/ProductAdminController');
 const multipartUpload = require('../../app/Middleware/multipleUploadMiddleware');
 
 router.get('/', productAdminController.getListProduct);

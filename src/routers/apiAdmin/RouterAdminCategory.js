@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multipartUpload = require('../../app/Middleware/multipleUploadMiddleware');
-const categoryAdminController = require('../../app/Controller/admin/CategoryAdminController');
+const categoryAdminController = require('../../app/Controller/adminController/CategoryAdminController');
 
 router.get('/', categoryAdminController.getCategories);
 router.get('/get-one', categoryAdminController.getCategory);
