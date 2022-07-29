@@ -141,6 +141,7 @@ class AcountController {
             console.log(email);
             let user = await db.User.findOne({
                 where: { email: email },
+                raw: true,
             });
             if (!user) {
                 return res.status(401).json({
@@ -173,16 +174,13 @@ class AcountController {
                                 expiresIn: '1d',
                             },
                         );
-                        res.cookie('token', token, {
-                            maxAge: 365 * 24 * 60 * 60 * 100,
-                            httpOnly: true,
-                            //secure: true;
-                        });
+                        const { password, ...infor } = user;
+                        console.log(infor);
                         res.status(200).json({
                             message: 'Đăng nhập thành công',
                             success: true,
                             token: token,
-                            infor: user.name,
+                            infor: infor,
                         });
                     }
                 }
