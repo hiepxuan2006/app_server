@@ -1,15 +1,28 @@
 const path = require('path');
 module.exports = {
 <<<<<<< HEAD
+<<<<<<< HEAD
     'config': path.resolve('./config', 'config.json'),
     'migrations-path': path.resolve('./', 'migrations'),
     'models-path': path.resolve('./', 'models'),
     'seeders-path': path.resolve('./', 'seeders')
 }
 =======
+=======
+>>>>>>> c8c0431c4f4942e507af55e1cddb489657edc5a1
     config: path.resolve('./config', 'config.json'),
     'migrations-path': path.resolve('./', 'migrations'),
     'models-path': path.resolve('./', 'models'),
     'seeders-path': path.resolve('./', 'seeders'),
 };
+<<<<<<< HEAD
 >>>>>>> 824002c33fca7156164424210b4addd4c4fcf576
+=======
+=======
+    'config': path.resolve('./config', 'config.json'),
+    'migrations-path': path.resolve('./', 'migrations'),
+    'models-path': path.resolve('./', 'models'),
+    'seeders-path': path.resolve('./', 'seeders')
+}
+>>>>>>> 9976f261982f6fd2df5b85cfcaee3acac0ed7665
+>>>>>>> c8c0431c4f4942e507af55e1cddb489657edc5a1
