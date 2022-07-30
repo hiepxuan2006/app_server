@@ -5,7 +5,6 @@ const OrderController = {
     postOrder: async (req, res) => {
         try {
             const data = req.body;
-            console.log(!data.user);
             let customer;
             if (!data.user_id) {
                 customer = await db.Customer.findOne({

@@ -13,7 +13,6 @@ class AcountController {
             const isUser = await db.User.findAll({
                 where: { email: email },
             });
-            console.log(isUser.length > 0 ? true : false);
             if (isUser.length)
                 return res.status(400).json({
                     success: false,

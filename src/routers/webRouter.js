@@ -58,7 +58,6 @@ function route(app) {
                 fs.writeFile(newPath, data, function (err) {
                     if (err) console.log({ err: err });
                     else {
-                        console.log(data);
                         let fileName = req.files.upload.name;
                         let url = '/upload/images/' + fileName;
                         res.status(201).json({

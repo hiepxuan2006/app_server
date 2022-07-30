@@ -16,7 +16,7 @@ class CategoryAdminController {
                 });
             }
             const skip = (page - 1) * limit;
-            console.log(limit);
+           ;
             let data = await db.Category.findAndCountAll({
                 offset: skip,
                 limit: parseInt(limit),
@@ -67,7 +67,6 @@ class CategoryAdminController {
                 slug: ChangeToSlug(name),
             };
             await db.Category.create(newCategory);
-            console.log(req.files.image_path[0]);
             res.status(200).json({
                 success: true,
                 message: 'Thêm thành công',

@@ -7,7 +7,6 @@ class CompanyAdminController{
     addCompany = async(req,res,next)=>{
        try {
         const {name,description}=req.body
-        console.log(req.file,'file');
         const newCOmpany = {
             name:name,
             image_detail: `upload/${req.files.image_path[0].filename}`,

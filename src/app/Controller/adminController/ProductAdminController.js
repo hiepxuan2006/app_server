@@ -3,14 +3,23 @@ const db = require('../../../../models');
 
 class ProductAdminController {
     getListProduct = async (req, res) => {
-        const { page, limit } = req.query;
-        let totalRows;
+        const { page, limit,categoryId } = req.query;
+        let data
         const skip = (page - 1) * limit;
-        const data = await db.Product.findAndCountAll({
-            include: [{ model: db.Category }],
-            offset: skip,
-            limit: parseInt(limit),
-        });
+        if(categoryId){
+            data = await db.Product.findAndCountAll({
+                include: [{ model: db.Category ,where:{id:categoryId}}],
+                offset: skip,
+                limit: parseInt(limit),
+            });
+        }else{
+            data = await db.Product.findAndCountAll({
+                include: [{ model: db.Category }],
+                offset: skip,
+                limit: parseInt(limit),
+            });
+
+        }
         if (data) {
             res.status(200).json({
                 data: data.rows,
@@ -102,7 +111,6 @@ class ProductAdminController {
             if (params.content) update.content = params.content;
             if (req.files.image_path)
                 update.feature_image_path = `upload/${req.files.image_path[0].filename}`;
-            console.log(update);
             const isupdate = await data.update(update);
             if (isupdate) {
                 res.status(200).json({
