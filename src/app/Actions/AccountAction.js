@@ -40,6 +40,7 @@ module.exports.login = async (args = {}) => {
         success: true,
         token: token,
         name: user.name,
+        isAdmin,
     };
 };
 

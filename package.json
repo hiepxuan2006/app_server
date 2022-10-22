@@ -23,10 +23,7 @@
         "express-handlebars-sections": "^1.0.1",
         "handlebars": "^4.7.7",
         "http-errors": "^2.0.0",
-<<<<<<< HEAD
-=======
         "joi": "^17.6.3",
->>>>>>> 9ab9843bd67dc9b690e1241e3f7117856975505d
         "jsonwebtoken": "^8.5.1",
         "multer": "^1.4.4",
         "mysql": "^2.18.1",
