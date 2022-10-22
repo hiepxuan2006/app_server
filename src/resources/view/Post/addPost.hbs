@@ -1,0 +1,54 @@
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <form class="col-sm-12" action="/admin/post/add" method="POST" enctype="multipart/form-data">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Chủ đề bài viết</label>
+                        <input type="text" class="form-control" name="name" placeholder="Nhập tên CHủ đề của bài viết"
+                            value="">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Ảnh đại diện bài viết</label>
+                        <input type="file" class="form-control-file" name="feature_image_path">
+                    </div>
+                    <div class="form-group">
+                        <label>Danh mục</label>
+                        <select class="form-control  " name="categorypost_id	">
+                            <option value="0">Chọn danh mục</option>
+                            {{{htmlSelect}}}
+                        </select>
+                    </div>
+
+
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nội dung bài viết</label>
+                        <textarea name="description" style="height: 1000px;" class="form-control my-editor " rows=""
+                            cols="">
+                                </textarea>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <button class="btn btn-primary" type="submit">Thêm bài viết</button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{{#section 'js'}}
+<script src="/ckeditor\ckeditor.js">
+</script>
+<script>
+    CKEDITOR.replace('description', {
+        extraPlugins: 'filebrowser',
+        filebrowserBrowseUrl: '/upload',//upload location
+        filebrowserUploadMethod: 'form',
+        filebrowserUploadUrl: '/upload'//route
+    })
+</script>
+{{/section}}
