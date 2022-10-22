@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const acountAdminController = require('../../app/Controller/adminController/AcountAdminController');
-const CheckLoginAdmin = require('../../app/Middleware/CheckLoginAdmin');
-router.post('/login', acountAdminController.login);
-router.get('/', CheckLoginAdmin, acountAdminController.check);
+const accountAdminController = require('../../app/Controller/adminController/AcountAdminController');
+const { CheckLoginAdmin } = require('../../app/Middleware/verifyLogin');
+
+router.get('/', CheckLoginAdmin, accountAdminController.auth);
+router.post('/login', accountAdminController.login);
 
 module.exports = router;
